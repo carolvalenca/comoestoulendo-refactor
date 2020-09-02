@@ -10,6 +10,9 @@ const bookSchema = new mongoose.Schema({
     bookCover: {
         type: String
     },
+    bookPages: {
+        type: Number
+    },
     startDate: {
         type: Date
     },
