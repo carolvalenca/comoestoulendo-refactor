@@ -7,10 +7,13 @@ const bookSchema = new mongoose.Schema({
     author: {
         type: String
     },
+    bookCover: {
+        type: String
+    },
     startDate: {
         type: Date
     },
-    finishDate: {
+    lastDate: {
         type: Date
     },
     lastPage: {
@@ -18,6 +21,12 @@ const bookSchema = new mongoose.Schema({
     },
     pagesPerDay: {
         type: Number
+    },
+    totalDays: {
+        type: Number
+    },
+    finished: {
+        type: Boolean
     }
 })
 
