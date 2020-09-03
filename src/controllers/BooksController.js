@@ -1,8 +1,8 @@
 const Book = require('../models/Book')
 
 function getDaysDifference(lastDate, dateNow){
-    const lastDateTimeStamp = lastDate.getTime();
-    const nowTimeStamp = dateNow.getTime();
+    const lastDateTimeStamp = (new Date(lastDate)).getTime();
+    const nowTimeStamp = (new Date(dateNow)).getTime();
 
     const microSecondsDiff = Math.abs(lastDateTimeStamp - nowTimeStamp );
     const daysDiff = Math.floor(microSecondsDiff/(1000 * 60 * 60  * 24));
@@ -34,14 +34,17 @@ module.exports = {
 
     async create(req, res) {
         const { name, author, bookCover, bookPages } = req.body
-        const startDate = new Date()
+        let startDate = new Date()
+
+        startDate = startDate + ""
+        startDate = startDate.split(' (')
 
         const book = new Book({
             name,
             author,
             bookCover,
             bookPages,
-            startDate,
+            startDate: startDate[0],
             lastPage: 0,
             finished: false
         })
@@ -57,14 +60,20 @@ module.exports = {
     async edit(req, res) {
         const { lastPage, finished, bookId } = req.body
 
-        const book = Book.findOne({_id: bookId})
-        const lastDate = new Date()
+        const book = await Book.findOne({_id: bookId})
+        let lastDate = new Date()
+        
+        lastDate = lastDate + ""
+        lastDate = lastDate.split(' (')
+        
+        let totalDays = getDaysDifference(book.startDate, lastDate[0])
 
-        const totalDays = getDaysDifference(book.startDate, lastDate)
+        //adicionando o dia em que o livro foi registrado pois ele conta como 0
+        totalDays = totalDays + 1
 
         book.lastPage = lastPage
         book.finished = finished
-        book.lastDate = lastDate
+        book.lastDate = lastDate[0]
         book.totalDays = totalDays
         book.pagesPerDay = (lastPage/totalDays)
 

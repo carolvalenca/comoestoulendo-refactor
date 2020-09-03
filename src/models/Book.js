@@ -14,10 +14,10 @@ const bookSchema = new mongoose.Schema({
         type: Number
     },
     startDate: {
-        type: Date
+        type: String
     },
     lastDate: {
-        type: Date
+        type: String
     },
     lastPage: {
         type: Number
