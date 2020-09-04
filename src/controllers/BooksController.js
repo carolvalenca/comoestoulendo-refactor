@@ -1,6 +1,10 @@
 const Book = require('../models/Book')
 
+
+
+//funcao que pega duas datas distintas e calcula da quantidade de dias entre elas
 function getDaysDifference(lastDate, dateNow){
+    //presume que as datas venham em formato de string e converte ambas para Date
     const lastDateTimeStamp = (new Date(lastDate)).getTime();
     const nowTimeStamp = (new Date(dateNow)).getTime();
 
@@ -9,15 +13,6 @@ function getDaysDifference(lastDate, dateNow){
 
     return daysDiff
 }
-
-//quantidade de dias entre duas datas distintas
-// var dateFromAPI = "2016-02-10T00:00:00Z";
-// var now = new Date();
-// var datefromAPITimeStamp = (new Date(dateFromAPI)).getTime();
-// var nowTimeStamp = now.getTime();
-
-// var microSecondsDiff = Math.abs(datefromAPITimeStamp - nowTimeStamp );
-// var daysDiff = Math.floor(microSecondsDiff/(1000 * 60 * 60  * 24));
 
 module.exports = {
     async indexFinished(req, res) {
