@@ -1,12 +1,17 @@
-const express = require('express')
-const routes = require('./routes')
-const mongoose = require('mongoose')
+const express = require('express');
+const routes = require('./routes');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-const app = express()
+const app = express();
 
-mongoose.connect("mongodb+srv://carol:carol123@cluster0.i4inp.mongodb.net/celdb?retryWrites=true&w=majority")
+dotenv.config();
 
-app.use(express.json())
-app.use(routes)
+mongoose.connect(process.env.DB_URL,
+    { useNewUrlParser: true },
+    { useUnifiedTopology: true });
 
-app.listen(8080)
+app.use(express.json());
+app.use(routes);
+
+app.listen(8080);
