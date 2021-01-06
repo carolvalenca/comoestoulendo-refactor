@@ -1,6 +1,16 @@
 const BookService = require('../services/book.service');
 const { getDaysDifference } = require('../utils/time_calc');
 
+async function getAllBooks(_, res) {
+    try {
+        const books = await BookService.getBooks();
+
+        return res.json(books);
+    } catch (err) {
+        res.send(err);
+    }
+}
+
 async function getFinishedBooks(_, res) {
     try {
         const books = await BookService.getFinishedBooks();
@@ -62,6 +72,7 @@ async function editBookRegister(req, res) {
 }
 
 module.exports = {
+    getAllBooks,
     getFinishedBooks,
     getNotFinishedBooks,
     createBookRegister,
