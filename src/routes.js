@@ -9,7 +9,7 @@ const verifyToken = require('./middlewares/verify-token');
 routes.post('/register', RegisterLoginController.register);
 routes.post('/login', RegisterLoginController.login);
 
-routes.get('/books/all', BookController.getFinishedBooks);
+routes.get('/books/all', BookController.getAllBooks);
 routes.get('/books/finished', BookController.getFinishedBooks);
 routes.get('/books/notfinished', BookController.getNotFinishedBooks);
 

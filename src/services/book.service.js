@@ -32,6 +32,7 @@ async function createBookregister(name, author, bookCover, bookPages, startDate)
         bookPages,
         startDate,
         lastPage: 0,
+        pagesPerDay: 0,
         finished: false
     });
 
