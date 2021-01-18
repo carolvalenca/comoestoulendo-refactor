@@ -71,10 +71,26 @@ async function editBookRegister(req, res) {
     }
 }
 
+async function deleteBookRegister(req, res) {
+    try {
+        const { id } = req.params;
+
+        await BookService.deleteBookRegister(id);
+
+        const books = BookService.getBooks();
+
+        return res.json(books);
+    } catch (err) {
+        console.log(err)
+        return res.status(400).json({err});
+    }
+}
+
 module.exports = {
     getAllBooks,
     getFinishedBooks,
     getNotFinishedBooks,
     createBookRegister,
     editBookRegister,
+    deleteBookRegister,
 }

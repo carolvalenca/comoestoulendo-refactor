@@ -55,6 +55,12 @@ async function editBookregister(lastPage, finished, bookId, lastDate, totalDays)
     return bookEdited;
 }
 
+async function deleteBookRegister(bookId) {
+    const bookRemoved = await Book.remove({_id: bookId});
+
+    return bookRemoved;
+}
+
 module.exports = {
     getBooks,
     getBook,
@@ -62,4 +68,5 @@ module.exports = {
     getNotFinishedBooks,
     createBookregister,
     editBookregister,
+    deleteBookRegister,
 }

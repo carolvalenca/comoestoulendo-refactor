@@ -15,5 +15,6 @@ routes.get('/books/notfinished', BookController.getNotFinishedBooks);
 
 routes.post('/books/create', BookController.createBookRegister);
 routes.put('/books/edit', BookController.editBookRegister);
+routes.delete('/books/delete/:id', BookController.deleteBookRegister);
 
 module.exports = routes;
