@@ -1,19 +1,17 @@
-const User = require('../models/User')
+const { User } = require('../app/models');
 
 async function getUser(email) {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ where: { email }});
 
     return user;
 }
 
 async function createUser(name, email, password) {
-    const user = new User({
+    const newUser = await User.create({
         name,
         email,
         password
     });
-
-    const newUser = await user.save();
 
     return newUser;
 }

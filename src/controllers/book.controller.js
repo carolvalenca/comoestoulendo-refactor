@@ -5,7 +5,7 @@ async function getAllBooks(_, res) {
     try {
         const books = await BookService.getBooks();
 
-        return res.json(books);
+        return res.status(200).json(books);
     } catch (err) {
         res.send(err);
     }
@@ -33,13 +33,9 @@ async function getNotFinishedBooks(_, res) {
 
 async function createBookRegister(req, res) {
     try {
-        const { name, author, bookCover, bookPages } = req.body;
-        let startDate = new Date();
-
-        startDate = startDate + "";
-        startDate = startDate.split(' (');
-
-        const newBook = await BookService.createBookregister(name, author, bookCover, bookPages, startDate[0]);
+        const { name, author, cover, pages } = req.body;
+    
+        const newBook = await BookService.createBookregister(name, author, cover, pages);
 
         return res.json(newBook);
     } catch(err) {
@@ -51,7 +47,6 @@ async function editBookRegister(req, res) {
     try {
         const { lastPage, finished, bookId } = req.body;
 
-        let lastDate = new Date();
         const book = await BookService.getBook(bookId);
         
         lastDate = lastDate + "";
@@ -62,7 +57,7 @@ async function editBookRegister(req, res) {
         //adicionando o dia em que o livro foi registrado pois ele conta como 0
         totalDays = totalDays + 1;
 
-        const bookEdited = await BookService.editBookregister(lastPage, finished, bookId, lastDate[0], totalDays);
+        const bookEdited = await BookService.editBookregister(lastPage, finished, bookId, totalDays);
 
         return res.json(bookEdited);
     } catch(err) {

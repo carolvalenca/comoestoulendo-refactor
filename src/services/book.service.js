@@ -1,54 +1,52 @@
-const Book = require('../models/Book');
+// const Book = require('../models/Book');
+const Book = require('../app/models/Book');
 
 async function getBooks() {
-    const books = await Book.find({});
+    const books = await Book.findAll({});
 
     return books;
 }
 
 async function getBook(bookId) {
-    const book = await Book.findOne({_id: bookId});
+    const book = await Book.findOne({ where: { id: bookId }});
 
     return book;
 }
 
 async function getFinishedBooks() {
-    const finishedBooks = await Book.find({finished: true});
+    const finishedBooks = await Book.findAll({ where: { finished: true }});
 
     return finishedBooks;
 }
 
 async function getNotFinishedBooks() {
-    const notFinishedBooks = await Book.find({finished: false});
+    const notFinishedBooks = await Book.findAll({ where: { finished: false }});
 
     return notFinishedBooks;
 }
 
-async function createBookregister(name, author, bookCover, bookPages, startDate) {
-    const book = new Book({
+async function createBookregister(name, author, cover, pages) {
+    const newBook = await Book.create({
         name,
         author,
-        bookCover,
-        bookPages,
-        startDate,
+        cover,
+        pages,
         lastPage: 0,
         pagesPerDay: 0,
+        totalDaysReading: 1,
         finished: false
     });
-
-    const newBook = await book.save();
 
     return newBook;
 }
 
-async function editBookregister(lastPage, finished, bookId, lastDate, totalDays) {
-    const book = await Book.findOne({_id: bookId});
+async function editBookregister(lastPage, finished, bookId, totalDays, pagesPerDay) {
+    const book = await Book.findOne({ where: { id: bookId }});
 
     book.lastPage = lastPage
     book.finished = finished
-    book.lastDate = lastDate
     book.totalDays = totalDays
-    book.pagesPerDay = (lastPage/totalDays);
+    book.pagesPerDay = pagesPerDay;
 
     const bookEdited = await book.save();
 
@@ -56,7 +54,9 @@ async function editBookregister(lastPage, finished, bookId, lastDate, totalDays)
 }
 
 async function deleteBookRegister(bookId) {
-    const bookRemoved = await Book.remove({_id: bookId});
+    const bookRemoved = await Book.findOne({ where: { id: bookId }});
+
+    await bookRemoved.destroy();
 
     return bookRemoved;
 }

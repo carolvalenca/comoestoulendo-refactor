@@ -1,13 +1,13 @@
-const express = require('express');
-const routes = express.Router();
+const routes = require('express').Router();
 
 const BookController = require('./controllers/book.controller');
-const RegisterLoginController = require('./controllers/register-login.controller');
+const SessionController = require('./controllers/session.controller');
 
 const verifyToken = require('./middlewares/verify-token');
+const { registerValidator, loginValidator } = require('./middlewares/session-validator')
 
-routes.post('/register', RegisterLoginController.register);
-routes.post('/login', RegisterLoginController.login);
+routes.post('/signup', registerValidator, SessionController.signUp);
+routes.post('/signin', loginValidator, SessionController.signIn);
 
 routes.get('/books/all', BookController.getAllBooks);
 routes.get('/books/finished', BookController.getFinishedBooks);
