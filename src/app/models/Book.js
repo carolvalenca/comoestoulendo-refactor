@@ -8,8 +8,9 @@ module.exports = (sequelize, DataTypes) => {
         cover: DataTypes.STRING,
         pages: DataTypes.INTEGER,
         lastPage: DataTypes.INTEGER,
-        pagePerDays: DataTypes.INTEGER,
+        pagesPerDay: DataTypes.INTEGER,
         totalDaysReading: DataTypes.INTEGER,
+        finished: DataTypes.BOOLEAN
     });
 
     Book.associate = function(models) {

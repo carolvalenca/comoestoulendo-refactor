@@ -25,11 +25,8 @@ function loginValidator(req, res, next) {
     }
 
     const data = req.body
-    console.log(data)
 
     let validation = new Validator(data, validationRule)
-
-    console.log(validation.fails())
 
     if (validation.fails()) {
         return res.status(400).json({ message: "the login validation failed" })

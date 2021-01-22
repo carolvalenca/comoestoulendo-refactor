@@ -44,6 +44,34 @@ describe('Authentication', () => {
 
         expect(response.header).toHaveProperty('auth-token');
     });
+
+    it("should be able to access private routes when authenticated", async () => {
+        const user = await factory.create("User", {
+          password: "123123"
+        });
+    
+        const response = await request(app)
+          .get("/books/all")
+          .set("auth-token", `Bearer ${user.generateToken()}`);
+
+        //   console.log(response)
+    
+        expect(response.status).toBe(200);
+      });
+    
+      it("should not be able to access private routes without jwt token", async () => {
+        const response = await request(app).get("/books/all");
+    
+        expect(response.status).toBe(401);
+      });
+    
+      it("should not be able to access private routes with invalid jwt token", async () => {
+        const response = await request(app)
+          .get("/books/all")
+          .set("auth-token", `Bearer 123123`);
+    
+        expect(response.status).toBe(401);
+      });
 });
 
 describe('Registration', () => {
