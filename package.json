@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "nodemon": "^2.0.4",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -27,7 +28,6 @@
   },
   "devDependencies": {
     "jest": "^26.6.3",
-    "nodemon": "^2.0.4",
     "sequelize-cli": "^6.2.0",
     "sqlite3": "^5.0.1",
     "supertest": "^6.1.1"
