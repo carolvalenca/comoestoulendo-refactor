@@ -78,8 +78,10 @@ async function editBookRegister(req, res) {
 
         //adicionando o dia em que o livro foi registrado pois ele conta como 0
         totalDays = totalDays + 1;
+        
+        let pagesPerDay = (lastPageRead/totalDays);
 
-        const bookEdited = await BookService.editBookregister(id, lastPageRead, finished, bookId, totalDays);
+        const bookEdited = await BookService.editBookregister(id, lastPageRead, finished, bookId, totalDays, pagesPerDay);
 
         return res.json(bookEdited);
     } catch(err) {
